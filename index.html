@@ -1,0 +1,172 @@
+<!DOCTYPE html><html><body>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logibarre Style</title>
+    <style>
+        :root {
+            /* Helle Glas-Farben für besseren Kontrast */
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --icon-color: #ffffff;
+            --icon-hover: #00d2ff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* Leiste unten positionieren */
+            /* Schöner Hintergrund (Landschaft), damit man den Glaseffekt sieht */
+            background-image: url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        /* Container für die Leiste */
+        .dock-container {
+            margin-bottom: 40px; /* Abstand vom unteren Rand */
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px); /* Der Unschärfe-Effekt */
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 10px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        /* Einzelnes Icon-Feld */
+        .icon-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+        }
+
+        /* SVG Icon Styling */
+        .icon-box svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--icon-color);
+            transition: fill 0.2s;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+        }
+
+        /* Hover Effekte */
+        .icon-box:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-10px) scale(1.15); /* Deutliches Hochspringen */
+            margin: 0 5px; /* Platz machen beim Vergrößern */
+        }
+
+        .icon-box:hover svg {
+            fill: var(--icon-hover);
+        }
+
+        /* Tooltip (Text über Icon) */
+        .tooltip {
+            position: absolute;
+            top: -40px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+
+        .icon-box:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* Trennlinie für die Uhr */
+        .divider {
+            width: 1px;
+            background: rgba(255,255,255,0.3);
+            margin: 5px 5px;
+        }
+
+        /* Uhrzeit */
+        .clock {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            padding: 0 10px;
+            min-width: 60px;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="dock-container">
+        
+        <div class="icon-box">
+            <span class="tooltip">Home</span>
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </div>
+
+        <div class="icon-box">
+            <span class="tooltip">Dateien</span>
+            <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+        </div>
+
+        <div class="icon-box">
+            <span class="tooltip">Internet</span>
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+
+        <div class="icon-box">
+            <span class="tooltip">Terminal</span>
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 12H4v-2h8v2zm0-3H4v-2h8v2zm10 3h-6v-2h6v2zm0-3h-6v-2h6v2z"/></svg>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="clock" id="clock">12:00</div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            // Zeitformat deutsch (HH:MM)
+            const timeString = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('clock').innerText = timeString;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+
+</body>
+</html>
+
+</body>
+
+<style>
+
+</style>
+
+<script>
+
+</script></html>
